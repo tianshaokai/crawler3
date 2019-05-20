@@ -18,18 +18,14 @@
 
     <bean id="homePageJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 
-        <property name="targetObject">
-            <ref bean="homePageTask"></ref>
-        </property>
-        <property name="targetMethod">
-            <value>execute</value>
-        </property>
+        <property name="targetObject" ref="homePageTask"/>
+        <property name="targetMethod" value="execute"/>
     </bean>
 
     <bean id="homePageSimpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
-        <property name="jobDetail" ref="homePageJobDetail"></property>
-        <property name="startDelay" value="1000"></property><!--调度工厂实例化后，经过1s秒开始执行调度  -->
-        <property name="repeatInterval" value="12000000000000000"></property>
+        <property name="jobDetail" ref="homePageJobDetail"/>
+        <property name="startDelay" value="1000"/><!--调度工厂实例化后，经过1s秒开始执行调度  -->
+        <property name="repeatInterval" value="12000000000000000"/>
     </bean>
 
 <!--    <bean id="downloadJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
