@@ -25,11 +25,20 @@ class Crawler {
         val homePageList = arrayListOf<HomePage>()
         val document: Document? = getDocument(homePage.url) ?: return homePageList;
         val linkPage = document!!.select(homePage.totalPageRole)
-        val element =  linkPage.get(0)
+        val element = linkPage.get(0)
         val max = NumberUtils.getNumber(element.text())
+        val stringBuilder = StringBuilder()
         for (i in 1..max) {
             val page = HomePage();
-            page.url = homePage.url
+            if (i == 1) {
+                page.url = homePage.url
+            } else {
+                stringBuilder.delete(0, stringBuilder.length)
+                stringBuilder.append(homePage.url)
+                stringBuilder.append(i)
+                stringBuilder.append("/")
+                page.url = stringBuilder.toString()
+            }
             page.siteName = homePage.siteName
             page.role = homePage.role
             homePageList.add(page)
