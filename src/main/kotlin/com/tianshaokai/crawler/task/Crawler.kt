@@ -1,10 +1,10 @@
 package com.tianshaokai.crawler.task
 
 import com.tianshaokai.crawler.entity.HomePage
+import com.tianshaokai.crawler.utils.NumberUtils
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.slf4j.LoggerFactory
-import java.util.regex.Pattern
 
 class Crawler {
 
@@ -26,11 +26,7 @@ class Crawler {
         val document: Document? = getDocument(homePage.url) ?: return homePageList;
         val linkPage = document!!.select(homePage.totalPageRole)
         val element =  linkPage.get(0)
-        val regEx = "[^0-9]"
-        val p = Pattern.compile(regEx)
-        val m = p.matcher(element.text());
-        val total = m.replaceAll("").trim();
-        val max = Integer.parseInt(total)
+        val max = NumberUtils.getNumber(element.text())
         for (i in 1..max) {
             val page = HomePage();
             page.url = homePage.url
